@@ -8,10 +8,11 @@ import org.springframework.web.bind.annotation.RestController
  */
 @RestController
 @RequestMapping("/foo")
-class FooController {
+class FooRestController {
 
     @RequestMapping("hi")
     fun foo(): String {
         return "foo controller 你好!"
     }
+
 }
