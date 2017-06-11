@@ -7,7 +7,32 @@
 <body>
 <h1>User Index Page非常好!@@!</h1>
 <p th:text="home.welcome"></p>
+
 <p th:text="#{home.welcome}"></p>
+<!--th:utext (for “unescaped text”):-->
+<p th:utext="#{home.welcome}"></p>
+
+<hr>
 <p th:text="#{const.name}"></p>
+<!--符合html5写法, 与th:text等价-->
+<p data-th-text="#{const.name}"></p>
+
+<hr>
+<p th:text="${requestKey}"></p>
+<p th:text="${session.sessionKey}"></p>
+<p>注意与上面表达式的区别</p>
+<p th:text="${#session.getAttribute('sessionKey')}"></p>
+<p th:text="${application.servletCtxKey}"></p>
+<p>注意与上面表达式的区别</p>
+<p th:text="${#servletContext.getAttribute('servletCtxKey')}"></p>
+<p th:text="${application.now}"></p>
+<p th:text="${application.nowLocal}"></p>
+<hr>
+
+<p th:text="${session.user.name}"></p>
+<p th:text="${session.user['pwd']}"></p>
+Established locale country: <span th:text="${#locale.country}">US</span>.
+<br>
+<a th:href="@{/}">首页</a>
 </body>
 </html>
