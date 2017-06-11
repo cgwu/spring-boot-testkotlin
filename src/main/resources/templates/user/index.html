@@ -34,5 +34,19 @@
 Established locale country: <span th:text="${#locale.country}">US</span>.
 <br>
 <a th:href="@{/}">首页</a>
+
+<h1>Standard Expression Syntax</h1>
+<p th:text="'working web\'s application'"></p>
+<p>In three years, it will be <span th:text="2017+3"></span></p>
+<p th:if="${true}">It's true.</p>
+<p th:if="${false}">It's false.</p>
+
+<div th:insert="~{footer :: copy}"></div>
+~{}是可选的，可去掉，完全一样。<br>
+<div th:replace="footer :: copy"></div>
+
+<div th:replace="~{common/layout :: info}"></div>
+<div th:replace="~{common/utils :: #copy-section}"></div>
+
 </body>
 </html>
