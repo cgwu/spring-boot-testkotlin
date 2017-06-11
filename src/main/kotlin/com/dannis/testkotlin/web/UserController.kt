@@ -15,7 +15,7 @@ class UserController {
 
     @RequestMapping("/index")
     fun index(): String {
-        log.info("User Controller index 方法被调用")
+//        log.info("User Controller index 方法被调用")       // test OK!
         return "user/index"
     }
 
