@@ -44,12 +44,22 @@ Established locale country: <span th:text="${#locale.country}">US</span>.
 <p>In three years, it will be <span th:text="2017+3"></span></p>
 <p th:if="${true}">It's true.</p>
 <p th:if="${false}">It's false.</p>
+<h1>测试boolean</h1>
+<p th:if="1 == 1"> 1 == 1 </p>
+<p th:if="true"> true </p>
+<p th:if="false"> false </p>
+<p th:if="'a' != 'ab'"> a != ab </p>
+<p th:if="'a' == 'a'"> a == a </p>
+
+<span th:text="'Welcome to our application, ' + ${1 != 1} + '!'"></span>
+
+<hr>
 
 <div th:insert="~{footer :: copy}"></div>
 ~{}是可选的，可去掉，完全一样。<br>
 <div th:replace="footer :: copy"></div>
 
-<div th:replace="~{common/layout :: info}"></div>
+<div th:replace="~{common/control :: info}"></div>
 <div th:replace="~{common/utils :: #copy-section}"></div>
 
 <h1>"~{templatename}" Includes the complete template named templatename .</h1>
@@ -60,6 +70,21 @@ Established locale country: <span th:text="${#locale.country}">US</span>.
 <div th:replace="~{::same-fragment}"></div>
 <div th:replace="~{this::same-fragment}"></div>
 
+<!--注释不会被解析,　测试条件包含失败-->
+<!--<div th:insert="common/utils :: (${1 == 1}? #{common/utils.admin} : #{common/utils.normal})"></div>-->
+<!--<div th:insert="footer :: (${true}? #a : #b)"></div>-->
+
+<h1>th:include is similar to th:insert , but instead of inserting the fragment it only inserts the contents of this fragment.</h1>
+<p th:include="~{::same-fragment}"></p>
+
+<h1>Parameterizable fragment signatures</h1>
+<div th:fragment="frag (var1, var2)">
+    <p th:text="${var1} + ' --- ' + ${var2}">这是条件片段</p>
+</div>
+<div th:replace="::frag('值1', '值2')"></div>
+<div th:replace="this::frag(var2 = '值2_value2', var1 = '值1_value1')"></div>
+<h1>与下句等同,This would be equivalent to a combination of th:replace and th:with</h1>
+<!--<div th:replace="::frag" th:with="var1='值1',var2='值2'"></div>-->
 
 
 </body>

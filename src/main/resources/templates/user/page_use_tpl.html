@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layouts/base}" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.thymeleaf.org">
+<head>
+    <title>使用模板的子页</title>
+</head>
+<body>
+
+<th:block layout:fragment="head-resource">
+    <link rel="stylesheet" href="http://apps.bdimg.com/libs/bootstrap/3.3.4/css/bootstrap.css">
+</th:block>
+
+<!-- /* Content of this page will be decorated by the elements of layout.html (task/layout) */ -->
+<div layout:fragment="content" style='border:solid 1px red;'>
+    <h4>这里是subpage内容</h4>
+    <h4 th:text="#{home.welcome}">hi</h4>
+    <h4 th:text="#{const.name}">t</h4>
+</div>
+
+<th:block layout:fragment="footer-resource">
+<script src="http://apps.bdimg.com/libs/jquery/1.11.3/jquery.min.js"></script>
+<script>
+    $(function(){
+        alert("Thymeleaf layout decorate PERFECT!");
+    });
+</script>
+</th:block>
+
+</body>
+</html>

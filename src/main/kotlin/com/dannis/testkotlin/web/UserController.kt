@@ -46,5 +46,18 @@ class UserController : ApplicationContextAware {
         return "user/index"
     }
 
+    @RequestMapping("/page-use-tpl")
+    fun page_use_tpl(request: HttpServletRequest, session: HttpSession): String {
+        session.setAttribute("sessionKey", "这是session里的值")
+        request.setAttribute("requestKey", "这是request里的值")
+        session.servletContext.setAttribute("servletCtxKey","这是Servlet Context值")
+        session.servletContext.setAttribute("now",Instant.now().atOffset(ZoneOffset.ofHours(8)))
+        session.servletContext.setAttribute("nowLocal", LocalDateTime.now())
+
+        var user = UserEntity("张三","123")
+        session.setAttribute("user",user)
+        return "user/page_use_tpl"
+    }
+
 
 }
