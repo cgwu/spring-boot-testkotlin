@@ -3,6 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>User Index</title>
+    <style>
+        body{ padding:50px; }
+        div{ border: 1px solid red; margin:10px;}
+    </style>
 </head>
 <body>
 <h1>User Index Page非常好!@@!</h1>
@@ -47,6 +51,16 @@ Established locale country: <span th:text="${#locale.country}">US</span>.
 
 <div th:replace="~{common/layout :: info}"></div>
 <div th:replace="~{common/utils :: #copy-section}"></div>
+
+<h1>"~{templatename}" Includes the complete template named templatename .</h1>
+<div th:replace="~{common/sidebar}"></div>
+
+<h1>~{::selector}" or "~{this::selector}" Includes a fragment from the same template.</h1>
+<div th:fragment="same-fragment">这里是同一页面的fragment!</div>
+<div th:replace="~{::same-fragment}"></div>
+<div th:replace="~{this::same-fragment}"></div>
+
+
 
 </body>
 </html>
