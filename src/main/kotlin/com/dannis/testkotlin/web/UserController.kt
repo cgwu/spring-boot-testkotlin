@@ -69,9 +69,19 @@ class UserController : ApplicationContextAware {
         )
         val mv = ModelAndView()
         mv.addObject("users", users)
-        mv.addObject("msg","This\"s is <b>great很好!</b>")
+        mv.addObject("msg", "This\"s is <b>great很好!</b>")
         mv.viewName = "user/each-th-block"
         return mv
     }
 
+    // 呈现部分模板
+    @RequestMapping("/show-content-part")
+    fun showContentPart(): String {
+        return "user/index :: frag1"        // Fragment
+    }
+
+    @RequestMapping("/show-content-part-msg")
+    fun showContentPartMsg(): String {
+        return "user/index :: #dvMsg"       // 元素ID
+    }
 }

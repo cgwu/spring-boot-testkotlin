@@ -44,7 +44,7 @@ class TestkotlinApplication {
 
     @Bean
     fun localResolver(): LocaleResolver {
-        val resolver = AcceptHeaderLocaleResolver();
+        val resolver = AcceptHeaderLocaleResolver()
         return resolver
     }
 

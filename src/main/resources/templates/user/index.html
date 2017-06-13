@@ -86,6 +86,12 @@ Established locale country: <span th:text="${#locale.country}">US</span>.
 <h1>与下句等同,This would be equivalent to a combination of th:replace and th:with</h1>
 <!--<div th:replace="::frag" th:with="var1='值1',var2='值2'"></div>-->
 
+<div th:fragment="frag1">
+    <h1>这里是frag1</h1>
+    <div id="dvMsg">
+        <h2>这里是frag1里面的Msg内容!</h2>
+    </div>
+</div>
 
 </body>
 </html>
