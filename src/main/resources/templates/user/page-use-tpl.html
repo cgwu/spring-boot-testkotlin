@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html layout:decorate="~{layouts/base}" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.thymeleaf.org">
 <head>
-    <title>使用模板的子页</title>
+    <title>使用模板的子页标题</title>
 </head>
 <body>
 
-<th:block layout:fragment="head-resource">
+<th:block layout:fragment="head-res">
     <link rel="stylesheet" href="http://apps.bdimg.com/libs/bootstrap/3.3.4/css/bootstrap.css">
 </th:block>
 
@@ -16,8 +16,8 @@
     <h4 th:text="#{const.name}">t</h4>
 </div>
 
-<th:block layout:fragment="footer-resource">
-<script src="http://apps.bdimg.com/libs/jquery/1.11.3/jquery.min.js"></script>
+<th:block layout:fragment="foot-res">
+<script src="http://apps.bdimg.com/libs/underscore.js/1.7.0/underscore-min.js"></script>
 <script>
     $(function(){
         alert("Thymeleaf layout decorate PERFECT!");

@@ -8,10 +8,9 @@
     <!--<script th:src="@{/js/jquery-1.11.3.min.js}"></script>-->
 
     <link rel="stylesheet" href="http://apps.bdimg.com/libs/animate.css/3.1.0/animate.min.css">
-    <th:block layout:fragment="head-resource"></th:block>
+    <th:block layout:fragment="head-res"></th:block>
 </head>
 <body>
-
 <!--/* Standard layout can be mixed with Layout Dialect */-->
 <div th:replace="fragments/header :: header"></div>
 <div class="container">
@@ -34,7 +33,7 @@
     <hr>
     <div th:replace="fragments/footer :: footer"></div>
 </div>
-<script src="http://apps.bdimg.com/libs/underscore.js/1.7.0/underscore-min.js"></script>
-<th:block layout:fragment="footer-resource"></th:block>
+<script src="http://apps.bdimg.com/libs/jquery/1.11.3/jquery.min.js"></script>
+<th:block layout:fragment="foot-res"></th:block>
 </body>
 </html>
