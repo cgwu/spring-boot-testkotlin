@@ -16,15 +16,16 @@
 		<h3>Messages:</h3>
 		<ol id="messages"></ol>
 	</div>
-	<script type="text/javascript">
+	<script th:inline="javascript">
 		/* var ctxPath = '/j' */
 		var ctxPath = '';
+		var userChanel = [[${userChanel}]];
 		$(document).ready(function() {
 			var messageList = $("#messages");
 			var socket = new SockJS(ctxPath+'/stomp');
 			var stompClient = Stomp.over(socket);
 			stompClient.connect({}, function(frame) {
-				stompClient.subscribe("/topic/message", function(data) {
+				stompClient.subscribe("/topic/" + userChanel, function(data) {
 					var message = data.body;
 					messageList.append("<li>" + message + "</li>");
 				});
