@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8">
 	<title>WebSocket Demo</title>
@@ -10,13 +10,25 @@
 	 -->
 	<script type="text/javascript" src="/js/sockjs.min.js"></script>
 	<script type="text/javascript" src="/js/stomp.min.js"></script>
+	<style>
+		div{border:1px solid red;}
+	</style>
 </head>
 <body>
+	<div>
+		<input id="txtPathVar" type="text" placeholder="路径值" >
+		<input id="btnSendApp" type="button" value="测试发送消息到服务器/app">
+	</div>
+	<div>
+		<input id="txtMsgBody" type="text" placeholder="BODY值" >
+		<input id="btnSendSpecific" type="button" value="测试发送消息到服务器/app">
+	</div>
 	<div>
 		<h3>Messages:</h3>
 		<ol id="messages"></ol>
 	</div>
 	<script th:inline="javascript">
+		var gsc = null;		//Global Stomp Client
 		/* var ctxPath = '/j' */
 		var ctxPath = '';
 		var userChanel = [[${userChanel}]];
@@ -25,11 +37,30 @@
 			var socket = new SockJS(ctxPath+'/stomp');
 			var stompClient = Stomp.over(socket);
 			stompClient.connect({}, function(frame) {
+				gsc = stompClient;
 				stompClient.subscribe("/topic/" + userChanel, function(data) {
 					var message = data.body;
 					messageList.append("<li>" + message + "</li>");
 				});
 			});
+
+			$("#btnSendApp").click(function(){
+				if(gsc) {
+					var pathVal = $("#txtPathVar").val();
+					// send(目的地址, headers[js对象], body[字符串])
+					gsc.send('/app/ws.bar.'+pathVal, {priority: 9}, 'Hello, STOMP Server!');
+				}
+			});
+
+			$("#btnSendSpecific").click(function(){
+				if(gsc) {
+					var body = $("#txtMsgBody").val();
+					// send(目的地址, headers[js对象], body[字符串])
+					gsc.send('/app/ws.logbody', {priority: 9}, body);
+				}
+			});
+
+
 		});
 	</script>
 </body>
