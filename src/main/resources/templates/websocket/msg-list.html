@@ -9,7 +9,8 @@
 	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 	 -->
 	<script type="text/javascript" src="/js/sockjs.min.js"></script>
-	<script type="text/javascript" src="/js/stomp.min.js"></script>
+	<!--<script type="text/javascript" src="/js/stomp.min.js"></script>-->
+	<script type="text/javascript" src="/js/stomp.js"></script>
 	<style>
 		div{border:1px solid red;}
 	</style>
@@ -51,6 +52,7 @@
 			var messageList = $("#messages");
 			var socket = new SockJS(ctxPath+'/stomp');
 			var stompClient = Stomp.over(socket);
+			stompClient.debug = false;  //发布阶段不要注释该行
 			stompClient.connect({}, function(frame) {
 				gsc = stompClient;
 

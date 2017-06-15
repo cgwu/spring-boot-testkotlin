@@ -61,9 +61,11 @@ class WebSocketController {
         producer!!.sendMessageTo("user1", body)
     }
 
+    // 测试发现: @DestinationVariable 和 @Header,@Payload 不能同时使用,否则前者取值错误.
     @MessageMapping("user")
     fun sendtouser(@Header("userId") userId: String, @Payload body: String) {
         log.info("发送消息到用户: $userId, Msg: $body")
+        // 此类消息客户端应使用的订阅路径为: /user/{userId}/msg
         template!!.convertAndSendToUser(userId, "/msg", body)
     }
 
