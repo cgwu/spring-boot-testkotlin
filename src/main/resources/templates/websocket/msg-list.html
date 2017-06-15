@@ -16,13 +16,28 @@
 </head>
 <body>
 	<div>
+        服务器接收消息测试:
 		<input id="txtPathVar" type="text" placeholder="路径值" >
 		<input id="btnSendApp" type="button" value="测试发送消息到服务器/app">
 	</div>
 	<div>
+        服务器接收消息测试打印整个消息:
 		<input id="txtMsgBody" type="text" placeholder="BODY值" >
 		<input id="btnSendSpecific" type="button" value="测试发送消息到服务器/app">
 	</div>
+
+    <div>
+        发送到特定用户
+        <input id="txtUserId" type="text" placeholder="用户ID" >
+        <input id="txtBody" type="text" placeholder="消息内容" >
+        <input id="btnSendUser" type="button" value="发送到特定用户/user/{id}/msg">
+    </div>
+    <div>
+        广播所有用户
+        <input id="txtBroadBody" type="text" placeholder="消息内容" >
+        <input id="btnBroadUser" type="button" value="广播所有用户/topic">
+    </div>
+
 	<div>
 		<h3>Messages:</h3>
 		<ol id="messages"></ol>
@@ -31,17 +46,24 @@
 		var gsc = null;		//Global Stomp Client
 		/* var ctxPath = '/j' */
 		var ctxPath = '';
-		var userChanel = [[${userChanel}]];
+		var userId = [[${userChanel}]];
 		$(document).ready(function() {
 			var messageList = $("#messages");
 			var socket = new SockJS(ctxPath+'/stomp');
 			var stompClient = Stomp.over(socket);
 			stompClient.connect({}, function(frame) {
 				gsc = stompClient;
-				stompClient.subscribe("/topic/" + userChanel, function(data) {
+
+				stompClient.subscribe("/topic" , function(data) {
 					var message = data.body;
-					messageList.append("<li>" + message + "</li>");
+					messageList.append("<li>topic: " + message + "</li>");
 				});
+
+				stompClient.subscribe("/user/" + userId + '/msg', function(data) {
+					var message = data.body;
+					messageList.append("<li>user: " + message + "</li>");
+				});
+
 			});
 
 			$("#btnSendApp").click(function(){
@@ -60,6 +82,22 @@
 				}
 			});
 
+			$("#btnSendUser").click(function(){
+				if(gsc) {
+				    var userId = $("#txtUserId").val();
+					var body = $("#txtBody").val();
+					// send(目的地址, headers[js对象], body[字符串])
+					gsc.send('/app/ws.user', {userId: userId , priority: 9}, body);
+				}
+			});
+
+			$("#btnBroadUser").click(function(){
+				if(gsc) {
+					var body = $("#txtBroadBody").val();
+					// send(目的地址, headers[js对象], body[字符串])
+					gsc.send('/app/ws.topic', {priority: 9}, body);
+				}
+			});
 
 		});
 	</script>

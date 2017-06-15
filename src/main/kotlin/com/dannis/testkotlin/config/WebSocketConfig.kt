@@ -50,5 +50,9 @@ class WebSocketConfig : AbstractWebSocketMessageBrokerConfigurer() {
             If the application prefix is set to "/app" then the foo method is effectively mapped to "/app/foo.bar.{baz}".
         */
         config.setPathMatcher(AntPathMatcher("."))
+
+        // 指定用户发送一对一的主题前缀是"/user"
+//        config.setUserDestinationPrefix("/user")
     }
+
 }

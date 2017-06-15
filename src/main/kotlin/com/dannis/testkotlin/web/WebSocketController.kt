@@ -4,6 +4,7 @@ import com.dannis.testkotlin.component.WebSocketProducer
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.messaging.handler.annotation.*
+import org.springframework.messaging.simp.SimpMessagingTemplate
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.ResponseBody
@@ -25,6 +26,9 @@ class WebSocketController {
     companion object {
         private val log = LoggerFactory.getLogger(WebSocketController::class.java)
     }
+
+    @Autowired
+    private val template: SimpMessagingTemplate? = null
 
     @Autowired
     var producer: WebSocketProducer? = null
@@ -50,13 +54,23 @@ class WebSocketController {
     }
 
     @MessageMapping("logbody")
-    fun logMsg(@Payload body:String, @Header("priority") priority: String, @Headers headers: Map<String, Any>) {
+    fun logMsg(@Payload body: String, @Header("priority") priority: String, @Headers headers: Map<String, Any>) {
         log.info("服务器接收到WebSocket消息体内容: $body")
         log.info("优先级: $priority")
         log.info("所有头部: $headers")
         producer!!.sendMessageTo("user1", body)
     }
 
+    @MessageMapping("user")
+    fun sendtouser(@Header("userId") userId: String, @Payload body: String) {
+        log.info("发送消息到用户: $userId, Msg: $body")
+        template!!.convertAndSendToUser(userId, "/msg", body)
+    }
 
+    @MessageMapping("topic")
+    fun broadcast(@Payload body: String) {
+        log.info("广播消息: $body")
+        template!!.convertAndSend("/topic", body)
+    }
 
 }
