@@ -12,7 +12,7 @@ package com.dannis.testkotlin.syntax
 
 
 // primary constructor 当前面无修饰符时，可以省略.
-class HuffmanNode /* constructor */(
+data class HuffmanNode /* constructor */(
         var weight: Double = 0.0,
         var parent: HuffmanNode? = null,
         var lchild: HuffmanNode? = null,
