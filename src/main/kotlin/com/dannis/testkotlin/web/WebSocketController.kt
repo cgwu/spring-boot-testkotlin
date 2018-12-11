@@ -65,7 +65,7 @@ class WebSocketController {
     @MessageMapping("user")
     fun sendtouser(@Header("userId") userId: String, @Payload body: String) {
         log.info("发送消息到用户: $userId, Msg: $body")
-        // 此类消息客户端应使用的订阅路径为: /user/{userId}/msg
+        // 此类消息客户端应使用的订阅路径template为: /user/{userId}/msg
         template!!.convertAndSendToUser(userId, "/msg", body)
     }
 
